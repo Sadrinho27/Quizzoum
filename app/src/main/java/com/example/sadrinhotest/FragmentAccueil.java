@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,8 +14,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.sadrinhotest.databinding.FragmentAccueilBinding;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,34 +57,67 @@ public class FragmentAccueil extends Fragment {
         if (binding != null) {
             binding.button.setEnabled(false);
 
-            binding.inputName.addTextChangedListener(new TextWatcher() {
+            TextWatcher textWatcher = new TextWatcher() {
                 @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                }
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    binding.button.setEnabled(!charSequence.toString().trim().isEmpty());
+                    checkFields(); // Vérifie si les champs sont remplis
+                }
+
+                private void checkFields() {
+                    String pseudo = binding.pseudoInput.getText().toString().trim();
+                    String password = binding.passwordInput.getText().toString().trim();
+                    binding.button.setEnabled(!pseudo.isEmpty() && !password.isEmpty());
                 }
 
                 @Override
-                public void afterTextChanged(Editable editable) {
-                }
-            });
+                public void afterTextChanged(Editable editable) {}
+            };
+
+            // Appliquer le TextWatcher aux deux champs
+            binding.pseudoInput.addTextChangedListener(textWatcher);
+            binding.passwordInput.addTextChangedListener(textWatcher);
+
+            DatabaseHelper dbHelper = new DatabaseHelper(requireContext());
+
+            // Ajouter un utilisateur
+            // dbHelper.ajouterUtilisateur("JohnDoe", "motdepasse123");
+
+            // Récupérer les utilisateurs et les afficher
+            List<String> users = dbHelper.getAllUtilisateurs();
+            for (String user : users) {
+                Log.d("SQLite", "Utilisateur : " + user);
+            }
 
             binding.button.setOnClickListener(v -> {
                 Log.d("STATE", "Vous avez cliqué sur le bouton");
 
-                String inputText = binding.inputName.getText().toString();
-                Log.d("STATE", inputText);
+                String pseudoProvided = binding.pseudoInput.getText().toString();
+                String passwordProvided = binding.passwordInput.getText().toString();
+                Log.d("STATE", "Pseudo : " + pseudoProvided + " Password : " + passwordProvided);
 
-                FragmentQuiz fragmentQuiz = new FragmentQuiz();
-                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.conteneur, fragmentQuiz)
-                        .addToBackStack(null)
-                        .commit();
+                if (dbHelper.checkIfUserExist(pseudoProvided, passwordProvided)) {
+                    Log.d("SQLite", "Connexion réussie !");
+
+                    User user = new User(pseudoProvided, passwordProvided);
+
+                    UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+                    userViewModel.setUser(user);
+
+                    FragmentMenu fragmentMenu = new FragmentMenu();
+                    FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.conteneur, fragmentMenu)
+                            .addToBackStack(null)
+                            .commit();
+                } else {
+                    Log.e("SQLite", "Pseudo ou mot de passe incorrect !");
+                    Toast.makeText(requireContext(), "Pseudo ou mot de passe incorrect", Toast.LENGTH_SHORT).show();
+                }
             });
+
         }
     }
 

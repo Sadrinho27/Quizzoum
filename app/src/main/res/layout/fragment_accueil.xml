@@ -7,77 +7,58 @@
     android:layout_height="match_parent"
     tools:context=".FragmentAccueil">
 
-    <!-- Title Text -->
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bienvenue sur ce quiz !"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/subtitle"
+        android:layout_marginStart="100dp"
         android:layout_marginTop="200dp"
-        android:layout_marginStart="100dp"
         android:layout_marginEnd="100dp"
-        android:layout_marginBottom="10dp"
-        android:textSize="18sp"
-        android:gravity="center"/>
-
-    <!-- Subtitle Text -->
-    <TextView
-        android:id="@+id/subtitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Veuillez donner votre nom"
-        app:layout_constraintTop_toBottomOf="@id/title"
-        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center"
+        android:text="Bienvenue sur Quizzoum!"
+        android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/inputName"
-        android:layout_marginStart="100dp"
-        android:layout_marginEnd="100dp"
-        android:layout_marginBottom="20dp"
-        android:textSize="16sp"
-        android:gravity="center"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- EditText for user input -->
     <EditText
-        android:id="@+id/inputName"
+        android:id="@+id/pseudoInput"
         android:layout_width="300dp"
         android:layout_height="40dp"
-        android:hint="Votre nom ici"
-        android:background="@android:drawable/editbox_background"
-        app:layout_constraintTop_toBottomOf="@id/subtitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="50dp"
-        app:layout_constraintHorizontal_bias="0.5"/>
+        android:background="@android:drawable/editbox_background"
+        android:hint="Votre pseudo ici"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.545"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
 
-    <!-- Button -->
+    <EditText
+        android:id="@+id/passwordInput"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="50dp"
+        android:background="@android:drawable/editbox_background"
+        android:hint="Votre mot de passe ici"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.545"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pseudoInput" />
+
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="C'est parti"
-        app:layout_constraintTop_toBottomOf="@id/inputName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:padding="10dp"
-        app:layout_constraintHorizontal_bias="0.5"/>
-
-    <!-- Text for Result -->
-    <TextView
-        android:id="@+id/textResult"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/button"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="Se connecter"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:text="Résultat ici"
-        android:textSize="16sp"
-        android:gravity="center"/>
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordInput" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
