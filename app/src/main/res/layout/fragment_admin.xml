@@ -1,14 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EDE7F6"
     tools:context=".FragmentAdmin">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/admin_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Panneau Administrateur"
+        android:textSize="32sp"
+        android:textColor="#6A1B9A"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="32dp" />
 
-</FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/admin_title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="16dp">
+
+        <Button
+            android:id="@+id/manage_users_btn"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="16dp"
+            android:padding="12dp"
+            android:text="Gérer les Utilisateurs"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_background" />
+
+        <Button
+            android:id="@+id/manage_quizzes_btn"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="16dp"
+            android:padding="12dp"
+            android:text="Gérer les Quiz"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_background" />
+
+        <Button
+            android:id="@+id/view_statistics_btn"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="32dp"
+            android:padding="12dp"
+            android:text="Voir les Statistiques"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_background" />
+
+        <Button
+            android:id="@+id/logout_btn"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:padding="12dp"
+            android:text="Se Déconnecter"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_background" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

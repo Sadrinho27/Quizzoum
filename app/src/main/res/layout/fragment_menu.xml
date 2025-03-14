@@ -5,59 +5,65 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EDE7F6"
     tools:context=".FragmentMenu">
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="150dp"
-        android:layout_marginEnd="100dp"
         android:gravity="center"
         android:text="Menu de Quizzoum"
         android:textSize="40sp"
+        android:textColor="#6A1B9A"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/button_container"
+        android:layout_marginBottom="32dp" />
 
     <LinearLayout
+        android:id="@+id/button_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="98dp"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title">
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="32dp">
 
         <Button
             android:id="@+id/PlayBtn"
-            android:layout_width="220dp"
+            android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginBottom="16dp"
             android:padding="12dp"
             android:text="Jouer"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_background" />
 
         <Button
             android:id="@+id/logoutBtn"
-            android:layout_width="220dp"
+            android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginBottom="16dp"
             android:padding="12dp"
             android:text="Se déconnecter"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_background" />
 
         <Button
             android:id="@+id/adminBtn"
-            android:layout_width="220dp"
+            android:layout_width="match_parent"
             android:layout_height="60dp"
             android:padding="12dp"
             android:text="Admin Panel"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_background" />
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

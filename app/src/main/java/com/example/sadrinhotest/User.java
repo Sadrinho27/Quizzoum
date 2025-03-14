@@ -1,21 +1,28 @@
 package com.example.sadrinhotest;
 
+import android.content.Context;
+
 public class User {
     private String pseudo;
     private String password;
     private boolean isAdmin;
 
-    public User(String pseudo, String password) {
+    // Constructeurs, getters et setters
+    public User(String pseudo) {
         this.pseudo = pseudo;
     }
 
-    // Constructeurs, getters et setters
+    public void setPseudo(String pseudo) {
+        this.pseudo = pseudo;
+    }
 
     public String getPseudo() {
         return this.pseudo;
     }
 
-    public boolean isAdmin() {
-        return isAdmin;
+    public boolean isAdmin(Context context) {
+        DatabaseHelper dbHelper = new DatabaseHelper(context);
+        return dbHelper.checkIfUserIsAdmin(this.pseudo);
     }
+
 }

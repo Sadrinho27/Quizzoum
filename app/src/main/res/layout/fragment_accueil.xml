@@ -1,64 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragmentAccueil">
+    android:background="#EDE7F6"
+    android:padding="32dp">
+
+    <TextView
+        android:id="@+id/welcome_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bienvenue sur Quizzoum"
+        android:textSize="24sp"
+        android:textColor="#6A1B9A"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="16dp"/>
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="200dp"
-        android:layout_marginEnd="100dp"
-        android:gravity="center"
-        android:text="Bienvenue sur Quizzoum!"
-        android:textSize="40sp"
+        android:text="Connexion"
+        android:textSize="32sp"
+        android:textColor="#6A1B9A"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/pseudoInput"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/welcome_title"
+        android:layout_marginBottom="32dp"/>
 
     <EditText
         android:id="@+id/pseudoInput"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="50dp"
-        android:background="@android:drawable/editbox_background"
-        android:hint="Votre pseudo ici"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Pseudo"
+        android:background="@drawable/edit_text_background"
+        android:padding="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/passwordInput"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.545"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        android:layout_marginBottom="16dp"
+        android:textColorHint="#B39DDB"
+        android:textColor="#000000"/>
 
     <EditText
         android:id="@+id/passwordInput"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="50dp"
-        android:background="@android:drawable/editbox_background"
-        android:hint="Votre mot de passe ici"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Mot de passe"
+        android:background="@drawable/edit_text_background"
+        android:padding="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.545"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pseudoInput" />
+        app:layout_constraintTop_toBottomOf="@+id/pseudoInput"
+        android:layout_marginBottom="24dp"
+        android:inputType="textPassword"
+        android:textColorHint="#B39DDB"
+        android:textColor="#000000"/>
 
     <Button
         android:id="@+id/button"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:padding="10dp"
         android:text="Se connecter"
+        android:backgroundTint="#6A1B9A"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordInput" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordInput"
+        android:layout_marginTop="16dp"
+        android:padding="12dp"
+        android:background="@drawable/button_background"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -81,27 +81,27 @@ public class FragmentAccueil extends Fragment {
             binding.passwordInput.addTextChangedListener(textWatcher);
 
             DatabaseHelper dbHelper = new DatabaseHelper(requireContext());
+            // dbHelper.deleteDB();
 
             // Ajouter un utilisateur
-            // dbHelper.ajouterUtilisateur("JohnDoe", "motdepasse123");
+            dbHelper.createUser("admin", "admin", true);
+            dbHelper.createUser("test", "test", false);
+            // dbHelper.deleteUser("test");
 
             // Récupérer les utilisateurs et les afficher
-            List<String> users = dbHelper.getAllUtilisateurs();
-            for (String user : users) {
-                Log.d("SQLite", "Utilisateur : " + user);
-            }
+            // List<String> users = dbHelper.getAllUsers();
+            // for (String user : users) {
+            //     Log.d("SQLite", "Utilisateur : " + user);
+            // }
 
             binding.button.setOnClickListener(v -> {
-                Log.d("STATE", "Vous avez cliqué sur le bouton");
-
                 String pseudoProvided = binding.pseudoInput.getText().toString();
                 String passwordProvided = binding.passwordInput.getText().toString();
-                Log.d("STATE", "Pseudo : " + pseudoProvided + " Password : " + passwordProvided);
 
                 if (dbHelper.checkIfUserExist(pseudoProvided, passwordProvided)) {
-                    Log.d("SQLite", "Connexion réussie !");
+                    Log.d("SQLite", "Connexion réussie pour " + pseudoProvided + " !");
 
-                    User user = new User(pseudoProvided, passwordProvided);
+                    User user = new User(pseudoProvided);
 
                     UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
                     userViewModel.setUser(user);

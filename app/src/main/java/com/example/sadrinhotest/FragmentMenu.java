@@ -48,8 +48,6 @@ public class FragmentMenu extends Fragment {
 
         if (binding != null) {
             binding.PlayBtn.setOnClickListener(v -> {
-                Log.d("STATE", "Bouton Jouer clické");
-
                 FragmentQuiz fragmentQuiz = new FragmentQuiz();
                 FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction()
@@ -59,7 +57,10 @@ public class FragmentMenu extends Fragment {
             });
 
             binding.logoutBtn.setOnClickListener(v -> {
-                Log.d("STATE", "Bouton Logout clické");
+                UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+                userViewModel.setUser(null);
+
+                Log.d("STATE", "Utilisateur déconnecté !");
 
                 FragmentAccueil fragmentAccueil = new FragmentAccueil();
                 FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
@@ -71,20 +72,15 @@ public class FragmentMenu extends Fragment {
 
             userViewModel.getUser().observe(getViewLifecycleOwner(), user -> {
                 if (user != null) {
-                    // Utilise les infos de l'utilisateur
-                    Log.d("User Info", "Pseudo: " + user.getPseudo());
-
-//                    if (user.role === "admin") {
-//                        binding.adminBtn.setVisibility(View.VISIBLE);
-//                    } else {
-//                        binding.adminBtn.setVisibility(View.INVISIBLE);
-//                    }
+                    if (user.isAdmin(requireContext())) {
+                        binding.adminBtn.setVisibility(View.VISIBLE);
+                    } else {
+                        binding.adminBtn.setVisibility(View.INVISIBLE);
+                    }
                 }
             });
 
             binding.adminBtn.setOnClickListener(v -> {
-                Log.d("STATE", "Bouton admin clické");
-
                 FragmentAdmin fragmentAdmin = new FragmentAdmin();
                 FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction()
