@@ -6,15 +6,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProvider;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.sadrinhotest.databinding.FragmentAdminBinding;
-import com.example.sadrinhotest.databinding.FragmentMenuBinding;
 
 public class FragmentAdmin extends Fragment {
     private FragmentAdminBinding binding;

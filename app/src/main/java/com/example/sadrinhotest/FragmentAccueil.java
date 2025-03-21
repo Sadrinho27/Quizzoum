@@ -18,20 +18,9 @@ import android.widget.Toast;
 
 import com.example.sadrinhotest.databinding.FragmentAccueilBinding;
 
-import java.util.List;
-
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentAccueil#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class FragmentAccueil extends Fragment {
 
     private FragmentAccueilBinding binding;
-
-    public FragmentAccueil() {
-        // Required empty public constructor
-    }
 
     public static FragmentAccueil newInstance(String param1, String param2) {
         FragmentAccueil fragment = new FragmentAccueil();
