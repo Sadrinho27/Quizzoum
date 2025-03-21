@@ -88,12 +88,6 @@ public class FragmentAccueil extends Fragment {
             dbHelper.createUser("test", "test", false);
             // dbHelper.deleteUser("test");
 
-            // Récupérer les utilisateurs et les afficher
-            // List<String> users = dbHelper.getAllUsers();
-            // for (String user : users) {
-            //     Log.d("SQLite", "Utilisateur : " + user);
-            // }
-
             binding.button.setOnClickListener(v -> {
                 String pseudoProvided = binding.pseudoInput.getText().toString();
                 String passwordProvided = binding.passwordInput.getText().toString();

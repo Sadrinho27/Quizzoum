@@ -86,14 +86,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public List<String> getAllUsers() {
-        List<String> users = new ArrayList<>();
+    public List<User> getAllUsers() {
+        List<User> users = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT pseudo FROM Utilisateur", null);
 
         if (cursor.moveToFirst()) {
             do {
-                users.add(cursor.getString(0));
+                String pseudo = cursor.getString(0);
+                users.add(new User(pseudo));
             } while (cursor.moveToNext());
         }
 
@@ -132,6 +133,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return isAdmin;
     }
 
+    public void updateUserRole(String pseudo, int newRole) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("role", newRole);
+        db.update("Utilisateur", values, "pseudo = ?", new String[]{pseudo});
+        db.close();
+    }
 
     public void deleteUser(String pseudo) {
         SQLiteDatabase db = this.getWritableDatabase();
