@@ -12,10 +12,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.sadrinhotest.DatabaseHelper;
 import com.example.sadrinhotest.R;
 import com.example.sadrinhotest.models.User;
-import com.example.sadrinhotest.models.UserViewModel;
 
 import java.util.List;
 
@@ -24,13 +22,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     private Context context;
     private List<User> userList;
     private User currentUser;
-    private DatabaseHelper dbHelper;
-    private UserViewModel userViewModel;
 
     public UserAdapter(Context context, List<User> userList, User currentUser) {
         this.context = context;
         this.userList = userList;
-        this.dbHelper = new DatabaseHelper(context);
         this.currentUser = currentUser;
     }
 
@@ -45,7 +40,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
         User user = userList.get(position);
         holder.pseudoText.setText(user.getPseudo());
-        holder.roleText.setText(user.isAdmin(context) ? "Admin" : "Joueur");
+        holder.roleText.setText(user.isAdmin() ? "Admin" : "Joueur");
 
         holder.editButton.setOnClickListener(v -> {
             if (user.getPseudo().equals(currentUser.getPseudo())) {
@@ -57,9 +52,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
                     .setTitle("Confirmation de modification")
                     .setMessage("Êtes-vous sûr de vouloir modifier le rôle de cet utilisateur ? Cette action est irréversible.")
                     .setPositiveButton("Oui", (dialog, which) -> {
-                        int newRole = user.isAdmin(context) ? 0 : 1;
+                        int newRole = user.isAdmin() ? 0 : 1;
                         String roleText = newRole == 1 ? "Admin" : "Joueur";
-                        dbHelper.updateUserRole(user.getPseudo(), newRole);
+//                        dbHelper.updateUserRole(user.getPseudo(), newRole);
                         holder.roleText.setText(roleText);
                     })
                     .setNegativeButton("Non", null)
@@ -76,7 +71,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
                     .setTitle("Confirmation de suppression")
                     .setMessage("Êtes-vous sûr de vouloir supprimer cet utilisateur ? Cette action est irréversible.")
                     .setPositiveButton("Oui", (dialog, which) -> {
-                        dbHelper.deleteUser(user.getPseudo());
+//                        dbHelper.deleteUser(user.getPseudo());
                         userList.remove(position);
                         notifyItemRemoved(position);
                     })

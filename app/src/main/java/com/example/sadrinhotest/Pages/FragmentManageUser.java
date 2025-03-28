@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sadrinhotest.Adapter.UserAdapter;
-import com.example.sadrinhotest.DatabaseHelper;
 import com.example.sadrinhotest.R;
 import com.example.sadrinhotest.databinding.FragmentManageUserBinding;
 import com.example.sadrinhotest.models.User;
@@ -28,7 +27,6 @@ public class FragmentManageUser extends Fragment {
     private FragmentManageUserBinding binding;
     private RecyclerView recyclerView;
     private UserAdapter userAdapter;
-    private DatabaseHelper dbHelper;
     private List<User> userList;
     private UserViewModel userViewModel;
     private User currentUser;
@@ -51,10 +49,10 @@ public class FragmentManageUser extends Fragment {
 
         // Initialiser RecyclerView et DatabaseHelper
         recyclerView = view.findViewById(R.id.recyclerViewUsers);
-        dbHelper = new DatabaseHelper(requireContext());
+//        dbHelper = new DatabaseHelper(requireContext());
 
         // Récupérer la liste des utilisateurs
-        userList = dbHelper.getAllUsers();
+//        userList = dbHelper.getAllUsers();
 
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
         userViewModel.getUser().observe(getViewLifecycleOwner(), new Observer<User>() {

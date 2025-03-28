@@ -2,19 +2,31 @@
 CREATE DATABASE IF NOT EXISTS Quizzoum;
 USE Quizzoum;
 
--- Création de la table type_difficulte
-CREATE TABLE IF NOT EXISTS type_difficulte (
+-- Création de la table Type_Difficulte
+CREATE TABLE IF NOT EXISTS Type_Difficulte (
     idTypeDiff INT PRIMARY KEY AUTO_INCREMENT,
     libelle VARCHAR(50) NOT NULL
 );
+ALTER TABLE Type_Difficulte AUTO_INCREMENT = 0;
+
+-- Création de la table Type_Role
+CREATE TABLE IF NOT EXISTS Type_Role (
+    idTypeRole INT PRIMARY KEY AUTO_INCREMENT,
+    libelle VARCHAR(50) NOT NULL
+);
+ALTER TABLE Type_Role AUTO_INCREMENT = 0;
 
 -- Création de la table Utilisateur
 CREATE TABLE IF NOT EXISTS Utilisateur (
     idUser INT PRIMARY KEY AUTO_INCREMENT,
     pseudo VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    scoreTotal INT NOT NULL DEFAULT 0
+    idTypeRole INT NOT NULL,
+    scoreTotal INT NOT NULL DEFAULT 0,
+    FOREIGN KEY (idTypeRole) REFERENCES Type_Role(idTypeRole) ON DELETE CASCADE
 );
+ALTER TABLE Utilisateur AUTO_INCREMENT = 0;
+
 
 -- Création de la table Session
 CREATE TABLE IF NOT EXISTS Session (
@@ -25,12 +37,16 @@ CREATE TABLE IF NOT EXISTS Session (
     idUser INT NOT NULL,
     FOREIGN KEY (idUser) REFERENCES Utilisateur(idUser) ON DELETE CASCADE
 );
+ALTER TABLE Session AUTO_INCREMENT = 0;
+
 
 -- Création de la table Theme
 CREATE TABLE IF NOT EXISTS Theme (
     idTheme INT PRIMARY KEY AUTO_INCREMENT,
     libelle VARCHAR(100) NOT NULL UNIQUE
 );
+ALTER TABLE Theme AUTO_INCREMENT = 0;
+
 
 -- Création de la table Question
 CREATE TABLE IF NOT EXISTS Question (
@@ -41,6 +57,8 @@ CREATE TABLE IF NOT EXISTS Question (
     FOREIGN KEY (idTheme) REFERENCES Theme(idTheme) ON DELETE CASCADE,
     FOREIGN KEY (idTypeDiff) REFERENCES type_difficulte(idTypeDiff) ON DELETE CASCADE
 );
+ALTER TABLE Question AUTO_INCREMENT = 0;
+
 
 -- Création de la table Reponse
 CREATE TABLE IF NOT EXISTS Reponse (
@@ -50,6 +68,8 @@ CREATE TABLE IF NOT EXISTS Reponse (
     idQuestion INT NOT NULL,
     FOREIGN KEY (idQuestion) REFERENCES Question(idQuestion) ON DELETE CASCADE
 );
+ALTER TABLE Reponse AUTO_INCREMENT = 0;
+
 
 -- Création de la table Session_Question
 CREATE TABLE IF NOT EXISTS Session_Question (
@@ -59,13 +79,18 @@ CREATE TABLE IF NOT EXISTS Session_Question (
     FOREIGN KEY (idSession) REFERENCES Session(idSession) ON DELETE CASCADE,
     FOREIGN KEY (idQuestion) REFERENCES Question(idQuestion) ON DELETE CASCADE
 );
+ALTER TABLE Session_Question AUTO_INCREMENT = 0;
 
 
--- Données pour la table type_difficulte
-INSERT INTO type_difficulte (libelle) VALUES ("facile");
-INSERT INTO type_difficulte (libelle) VALUES ("moyen");
-INSERT INTO type_difficulte (libelle) VALUES ("difficile");
 
+-- Données pour la table Type_Difficulte
+INSERT INTO Type_Difficulte (libelle) VALUES ("facile");
+INSERT INTO Type_Difficulte (libelle) VALUES ("moyen");
+INSERT INTO Type_Difficulte (libelle) VALUES ("difficile");
+
+-- Données pour la table TypeRole
+INSERT INTO Type_Role (libelle) VALUES ("Joueur");
+INSERT INTO Type_Role (libelle) VALUES ("Admin");
 
 -- Données pour la table Theme
 INSERT INTO Theme (libelle) VALUES ('Informatique');

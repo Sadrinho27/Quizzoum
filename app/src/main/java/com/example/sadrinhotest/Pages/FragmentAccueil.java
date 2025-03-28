@@ -1,5 +1,8 @@
 package com.example.sadrinhotest.Pages;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -15,11 +18,23 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.sadrinhotest.DatabaseHelper;
+import com.example.sadrinhotest.Interface.ApiService;
 import com.example.sadrinhotest.R;
+import com.example.sadrinhotest.RetrofitClient;
 import com.example.sadrinhotest.databinding.FragmentAccueilBinding;
 import com.example.sadrinhotest.models.User;
 import com.example.sadrinhotest.models.UserViewModel;
+
+import org.mindrot.jbcrypt.BCrypt;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class FragmentAccueil extends Fragment {
 
@@ -34,6 +49,51 @@ public class FragmentAccueil extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("user_prefs", MODE_PRIVATE);
+        boolean isLoggedIn = sharedPreferences.getBoolean("is_logged_in", false); // false si l'utilisateur n'est pas connecté
+        String registeredPseudo = sharedPreferences.getString("user_pseudo", "");
+
+        Retrofit retrofit = RetrofitClient.getInstance();
+        ApiService apiService = retrofit.create(ApiService.class);
+        if (isLoggedIn) {
+            Map<String, String> params = new HashMap<>();
+            params.put("pseudo", registeredPseudo);
+
+            apiService.getUserByPseudo(params).enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        User user = response.body();
+
+                        // Sauvegarder l'utilisateur dans le ViewModel pour l'utiliser dans d'autres fragments
+                        UserViewModel viewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+                        viewModel.setUser(user);
+
+                        // Log et redirection vers le FragmentMenu
+                        Log.d("Pré-Login", "L'utilisateur est déjà connecté, passage au FragmentMenu");
+                        FragmentMenu fragmentMenu = new FragmentMenu();
+                        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.conteneur, fragmentMenu)
+                                .addToBackStack(null)
+                                .commit();
+                    } else {
+                        // Gestion des erreurs si l'utilisateur n'est pas trouvé
+                        Log.d("API", "Utilisateur non trouvé");
+                        Toast.makeText(getContext(), "Erreur : Utilisateur non trouvé", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                    // Erreur de connexion
+                    Log.d("API", "Erreur lors de la récupération de l'utilisateur : " + t.getMessage());
+                    Toast.makeText(getContext(), "Erreur de connexion", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            Log.d("Pré-Login", "L'utilisateur n'est pas déjà connecté!");
+        }
     }
 
     @Override
@@ -47,7 +107,16 @@ public class FragmentAccueil extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         if (binding != null) {
-            binding.button.setEnabled(false);
+            binding.loginBtn.setEnabled(false);
+
+            binding.createAccountBtn.setOnClickListener(v -> {
+                FragmentAccountCreation fragmentAccountCreation = new FragmentAccountCreation();
+                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.conteneur, fragmentAccountCreation)
+                        .addToBackStack(null)
+                        .commit();
+            });
 
             TextWatcher textWatcher = new TextWatcher() {
                 @Override
@@ -62,7 +131,7 @@ public class FragmentAccueil extends Fragment {
                 private void checkFields() {
                     String pseudo = binding.pseudoInput.getText().toString().trim();
                     String password = binding.passwordInput.getText().toString().trim();
-                    binding.button.setEnabled(!pseudo.isEmpty() && !password.isEmpty());
+                    binding.loginBtn.setEnabled(!pseudo.isEmpty() && !password.isEmpty());
                 }
 
                 @Override
@@ -70,41 +139,68 @@ public class FragmentAccueil extends Fragment {
                 }
             };
 
-            // Appliquer le TextWatcher aux deux champs
             binding.pseudoInput.addTextChangedListener(textWatcher);
             binding.passwordInput.addTextChangedListener(textWatcher);
 
-            DatabaseHelper dbHelper = new DatabaseHelper(requireContext());
-            // dbHelper.deleteDB();
-
-            // Ajouter un utilisateur
-            dbHelper.createUser("admin", "admin", true);
-            dbHelper.createUser("test", "test", false);
-            // dbHelper.deleteUser("test");
-
-            binding.button.setOnClickListener(v -> {
+            binding.loginBtn.setOnClickListener(v -> {
                 String pseudoProvided = binding.pseudoInput.getText().toString();
                 String passwordProvided = binding.passwordInput.getText().toString();
 
-                if (dbHelper.checkIfUserExist(pseudoProvided, passwordProvided)) {
-                    Log.d("SQLite", "Connexion réussie pour " + pseudoProvided + " !");
+                Retrofit retrofit = RetrofitClient.getInstance();
+                ApiService apiService = retrofit.create(ApiService.class);
 
-                    User user = new User(pseudoProvided);
+                apiService.getUsers().enqueue(new Callback<List<User>>() {
+                    @Override
+                    public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                        if (response.isSuccessful()) {
+                            List<User> users = response.body();
+                            boolean userFound = false;
 
-                    UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-                    userViewModel.setUser(user);
+                            for (User user : users) {
+                                Log.d("API", "UserAdmin : " + user.toString());
+                                if (user.getPseudo().equals(pseudoProvided)) {
+                                    userFound = true;
+                                    String hashedPassword = user.getPassword();
 
-                    FragmentMenu fragmentMenu = new FragmentMenu();
-                    FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-                    fragmentManager.beginTransaction()
-                            .replace(R.id.conteneur, fragmentMenu)
-                            .addToBackStack(null)
-                            .commit();
-                } else {
-                    Log.e("SQLite", "Pseudo ou mot de passe incorrect !");
-                    Toast.makeText(requireContext(), "Pseudo ou mot de passe incorrect", Toast.LENGTH_SHORT).show();
-                }
+                                    if (BCrypt.checkpw(passwordProvided, hashedPassword)) {
+                                        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("user_prefs", MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                                        editor.putBoolean("is_logged_in", true);
+                                        editor.putString("user_pseudo", user.getPseudo());
+                                        editor.apply();
+
+                                        UserViewModel viewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+                                        viewModel.setUser(user);
+
+                                        FragmentMenu fragmentMenu = new FragmentMenu();
+                                        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                                        fragmentManager.beginTransaction()
+                                                .replace(R.id.conteneur, fragmentMenu)
+                                                .addToBackStack(null)
+                                                .commit();
+                                    } else {
+                                        Toast.makeText(getContext(), "Mot de passe incorrect", Toast.LENGTH_SHORT).show();
+                                    }
+                                    break;
+                                }
+                            }
+
+                            if (!userFound) {
+                                Toast.makeText(getContext(), "Pseudo incorrect", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(getContext(), "Erreur de communication avec le serveur", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<User>> call, Throwable t) {
+                        Log.d("API", "Erreur lors de la récupération des utilisateurs : " + t.getMessage());
+                        Toast.makeText(getContext(), "Erreur de connexion", Toast.LENGTH_SHORT).show();
+                    }
+                });
             });
+
 
         }
     }

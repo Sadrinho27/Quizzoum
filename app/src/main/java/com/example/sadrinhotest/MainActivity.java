@@ -30,16 +30,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        Retrofit retrofit = RetrofitClient.getInstance();
-        apiService = retrofit.create(ApiService.class);
+        getSupportActionBar().hide();
 
-        // Lancer l'appel API
-        fetchQuestionData();
+        // Retrofit retrofit = RetrofitClient.getInstance();
+        // apiService = retrofit.create(ApiService.class);
+        // fetchQuestionData();
 
         // Ajouter le fragment seulement si savedInstanceState est null
         if (savedInstanceState == null) {

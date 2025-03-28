@@ -1,5 +1,8 @@
 package com.example.sadrinhotest.Pages;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -67,11 +70,20 @@ public class FragmentMenu extends Fragment {
             });
 
             binding.logoutBtn.setOnClickListener(v -> {
+                // Retirer les informations de l'utilisateur de SharedPreferences
+                SharedPreferences sharedPreferences = requireContext().getSharedPreferences("user_prefs", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.remove("is_logged_in"); // Supprimer l'état de connexion
+                editor.remove("user_pseudo"); // Supprimer le pseudo de l'utilisateur, si tu l'avais stocké
+                editor.apply(); // Appliquer les changements
+
+                // Mettre l'utilisateur à null dans le ViewModel, si nécessaire
                 UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
                 userViewModel.setUser(null);
 
                 Log.d("STATE", "Utilisateur déconnecté !");
 
+                // Rediriger vers le fragment d'accueil
                 FragmentAccueil fragmentAccueil = new FragmentAccueil();
                 FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction()
@@ -82,7 +94,7 @@ public class FragmentMenu extends Fragment {
 
             userViewModel.getUser().observe(getViewLifecycleOwner(), user -> {
                 if (user != null) {
-                    if (user.isAdmin(requireContext())) {
+                    if (user.isAdmin()) {
                         binding.adminBtn.setVisibility(View.VISIBLE);
                     } else {
                         binding.adminBtn.setVisibility(View.INVISIBLE);
