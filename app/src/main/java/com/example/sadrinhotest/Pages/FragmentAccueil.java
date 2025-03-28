@@ -1,13 +1,6 @@
-package com.example.sadrinhotest;
+package com.example.sadrinhotest.Pages;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -16,7 +9,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.example.sadrinhotest.DatabaseHelper;
+import com.example.sadrinhotest.R;
 import com.example.sadrinhotest.databinding.FragmentAccueilBinding;
+import com.example.sadrinhotest.models.User;
+import com.example.sadrinhotest.models.UserViewModel;
 
 public class FragmentAccueil extends Fragment {
 
@@ -48,7 +51,8 @@ public class FragmentAccueil extends Fragment {
 
             TextWatcher textWatcher = new TextWatcher() {
                 @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
 
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -62,7 +66,8 @@ public class FragmentAccueil extends Fragment {
                 }
 
                 @Override
-                public void afterTextChanged(Editable editable) {}
+                public void afterTextChanged(Editable editable) {
+                }
             };
 
             // Appliquer le TextWatcher aux deux champs

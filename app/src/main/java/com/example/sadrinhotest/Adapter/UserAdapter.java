@@ -1,4 +1,4 @@
-package com.example.sadrinhotest;
+package com.example.sadrinhotest.Adapter;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -11,6 +11,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.sadrinhotest.DatabaseHelper;
+import com.example.sadrinhotest.R;
+import com.example.sadrinhotest.models.User;
+import com.example.sadrinhotest.models.UserViewModel;
 
 import java.util.List;
 

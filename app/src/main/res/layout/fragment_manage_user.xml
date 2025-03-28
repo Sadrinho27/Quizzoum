@@ -5,43 +5,42 @@
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EDE7F6"
-    tools:context=".FragmentManageUser">
+    android:background="#000000"
+    tools:context=".Pages.FragmentManageUser">
 
-    <!-- Titre -->
     <TextView
         android:id="@+id/manage_users_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="70dp"
         android:text="Gérer les Utilisateurs"
-        android:textColor="#6A1B9A"
+        android:textColor="#00FFFF"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- RecyclerView pour la liste des utilisateurs -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewUsers"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
         android:padding="16dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/backBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/manage_users_title" />
+        app:layout_constraintTop_toBottomOf="@id/manage_users_title"
+        app:layout_constraintVertical_bias="0.144" />
 
-    <!-- Bouton Retour -->
     <Button
         android:id="@+id/backBtn"
-        android:layout_width="match_parent"
+        android:layout_width="100dp"
         android:layout_height="60dp"
-        android:layout_margin="16dp"
-        android:background="@drawable/button_background"
+        android:layout_marginBottom="70dp"
+        android:background="@drawable/neon_button_background"
         android:text="Retour"
+        android:padding="12dp"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"

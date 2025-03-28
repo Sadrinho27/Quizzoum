@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EDE7F6"
+    android:background="#000000"
     android:padding="32dp">
 
     <TextView
@@ -12,13 +12,27 @@
         android:layout_height="wrap_content"
         android:text="Bienvenue sur Quizzoum"
         android:textSize="24sp"
-        android:textColor="#6A1B9A"
+        android:textColor="#00FFFF"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/owner_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="By Titouan D. T."
+        android:textSize="12sp"
+        android:textColor="#FF0000"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcome_title"
+        android:layout_marginBottom="32dp" />
 
     <TextView
         android:id="@+id/title"
@@ -26,13 +40,13 @@
         android:layout_height="wrap_content"
         android:text="Connexion"
         android:textSize="32sp"
-        android:textColor="#6A1B9A"
+        android:textColor="#00FFFF"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/pseudoInput"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcome_title"
-        android:layout_marginBottom="32dp"/>
+        android:layout_marginBottom="32dp" />
 
     <EditText
         android:id="@+id/pseudoInput"
@@ -46,8 +60,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title"
         android:layout_marginBottom="16dp"
-        android:textColorHint="#B39DDB"
-        android:textColor="#000000"/>
+        android:textColorHint="#00FFFF"
+        android:textColor="#FFFFFF" />
 
     <EditText
         android:id="@+id/passwordInput"
@@ -62,15 +76,15 @@
         app:layout_constraintTop_toBottomOf="@+id/pseudoInput"
         android:layout_marginBottom="24dp"
         android:inputType="textPassword"
-        android:textColorHint="#B39DDB"
-        android:textColor="#000000"/>
+        android:textColorHint="#00FFFF"
+        android:textColor="#FFFFFF" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Se connecter"
-        android:backgroundTint="#6A1B9A"
+        android:background="@drawable/neon_button_background_red"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -78,7 +92,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordInput"
         android:layout_marginTop="16dp"
-        android:padding="12dp"
-        android:background="@drawable/button_background"/>
+        android:padding="12dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

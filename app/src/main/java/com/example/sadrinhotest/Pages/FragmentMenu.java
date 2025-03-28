@@ -1,6 +1,10 @@
-package com.example.sadrinhotest;
+package com.example.sadrinhotest.Pages;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,12 +12,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
+import com.example.sadrinhotest.R;
 import com.example.sadrinhotest.databinding.FragmentMenuBinding;
+import com.example.sadrinhotest.models.UserViewModel;
 
 
 public class FragmentMenu extends Fragment {
@@ -52,6 +53,15 @@ public class FragmentMenu extends Fragment {
                 FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction()
                         .replace(R.id.conteneur, fragmentQuiz)
+                        .addToBackStack(null)
+                        .commit();
+            });
+
+            binding.LeaderboardBtn.setOnClickListener(v -> {
+                FragmentLeaderboard fragmentLeaderboard = new FragmentLeaderboard();
+                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.conteneur, fragmentLeaderboard)
                         .addToBackStack(null)
                         .commit();
             });

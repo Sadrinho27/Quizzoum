@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EDE7F6"
-    tools:context=".FragmentMenu">
+    android:background="#000000"
+    tools:context=".Pages.FragmentMenu">
 
     <TextView
         android:id="@+id/title"
@@ -15,7 +14,7 @@
         android:gravity="center"
         android:text="Menu de Quizzoum"
         android:textSize="40sp"
-        android:textColor="#6A1B9A"
+        android:textColor="#00FFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -42,18 +41,29 @@
             android:text="Jouer"
             android:textSize="20sp"
             android:textColor="#FFFFFF"
-            android:background="@drawable/button_background" />
+            android:background="@drawable/neon_button_background_blue" />
+
+        <Button
+            android:id="@+id/LeaderboardBtn"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="16dp"
+            android:padding="12dp"
+            android:text="Classement"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/neon_button_background_purple" />
 
         <Button
             android:id="@+id/logoutBtn"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="32dp"
             android:padding="12dp"
             android:text="Se déconnecter"
             android:textSize="20sp"
             android:textColor="#FFFFFF"
-            android:background="@drawable/button_background" />
+            android:background="@drawable/neon_button_background_red" />
 
         <Button
             android:id="@+id/adminBtn"
@@ -63,7 +73,7 @@
             android:text="Admin Panel"
             android:textSize="20sp"
             android:textColor="#FFFFFF"
-            android:background="@drawable/button_background" />
+            android:background="@drawable/neon_button_background_green" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

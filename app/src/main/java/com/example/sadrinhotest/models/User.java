@@ -1,6 +1,8 @@
-package com.example.sadrinhotest;
+package com.example.sadrinhotest.models;
 
 import android.content.Context;
+
+import com.example.sadrinhotest.DatabaseHelper;
 
 public class User {
     private String pseudo;

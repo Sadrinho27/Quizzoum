@@ -1,30 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EDE7F6"
-    tools:context=".FragmentAdmin">
+    android:background="#000000"
+    tools:context=".Pages.FragmentAdmin">
 
     <TextView
         android:id="@+id/admin_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
         android:text="Panneau Administrateur"
+        android:textColor="#00FFFF"
         android:textSize="32sp"
-        android:textColor="#6A1B9A"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="32dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:orientation="vertical"
         android:gravity="center"
         app:layout_constraintTop_toBottomOf="@+id/admin_title"
@@ -40,39 +39,28 @@
             android:text="Gérer les Utilisateurs"
             android:textSize="20sp"
             android:textColor="#FFFFFF"
-            android:background="@drawable/button_background" />
+            android:background="@drawable/neon_button_background" />
 
         <Button
             android:id="@+id/manage_quizzes_btn"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="32dp"
             android:padding="12dp"
             android:text="Gérer les Quiz"
             android:textSize="20sp"
             android:textColor="#FFFFFF"
-            android:background="@drawable/button_background" />
-
-        <Button
-            android:id="@+id/view_statistics_btn"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginBottom="32dp"
-            android:padding="12dp"
-            android:text="Voir les Statistiques"
-            android:textSize="20sp"
-            android:textColor="#FFFFFF"
-            android:background="@drawable/button_background" />
+            android:background="@drawable/neon_button_background" />
 
         <Button
             android:id="@+id/back_btn"
-            android:layout_width="match_parent"
+            android:layout_width="100dp"
             android:layout_height="60dp"
             android:padding="12dp"
             android:text="Retour"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textColor="#FFFFFF"
-            android:background="@drawable/button_background" />
+            android:background="@drawable/neon_button_background" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

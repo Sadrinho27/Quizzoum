@@ -6,7 +6,7 @@
     android:layout_margin="8dp"
     app:cardCornerRadius="12dp"
     app:cardElevation="6dp"
-    android:background="#FFFFFF">
+    android:background="#1A1A1A">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,7 +14,6 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Pseudo -->
         <TextView
             android:id="@+id/user_pseudo"
             android:layout_width="wrap_content"
@@ -22,19 +21,17 @@
             android:text="Pseudo"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="#6A1B9A" />
+            android:textColor="#00FFFF" />
 
-        <!-- Rôle -->
         <TextView
             android:id="@+id/user_role"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Rôle"
             android:textSize="16sp"
-            android:textColor="@android:color/darker_gray"
-            android:layout_marginTop="4dp"/>
+            android:textColor="#BBBBBB"
+            android:layout_marginTop="4dp" />
 
-        <!-- Boutons Modifier et Supprimer -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -49,7 +46,7 @@
                 android:text="Modifier"
                 android:textSize="14sp"
                 android:textColor="#FFFFFF"
-                android:background="@drawable/button_background"/>
+                android:background="@drawable/neon_button_background_edit" />
 
             <Button
                 android:id="@+id/delete_btn"
@@ -58,8 +55,8 @@
                 android:text="Supprimer"
                 android:textSize="14sp"
                 android:textColor="#FFFFFF"
-                android:background="@drawable/button_background_red"
-                android:layout_marginStart="8dp"/>
+                android:background="@drawable/neon_button_background_red"
+                android:layout_marginStart="8dp" />
         </LinearLayout>
     </LinearLayout>
 

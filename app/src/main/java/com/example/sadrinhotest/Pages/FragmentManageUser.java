@@ -1,6 +1,9 @@
-package com.example.sadrinhotest;
+package com.example.sadrinhotest.Pages;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,11 +14,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
+import com.example.sadrinhotest.Adapter.UserAdapter;
+import com.example.sadrinhotest.DatabaseHelper;
+import com.example.sadrinhotest.R;
 import com.example.sadrinhotest.databinding.FragmentManageUserBinding;
+import com.example.sadrinhotest.models.User;
+import com.example.sadrinhotest.models.UserViewModel;
 
 import java.util.List;
 
