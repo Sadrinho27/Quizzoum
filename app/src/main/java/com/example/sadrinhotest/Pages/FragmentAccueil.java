@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.sadrinhotest.Interface.ApiService;
 import com.example.sadrinhotest.R;
+import com.example.sadrinhotest.Repository.UserRepository;
 import com.example.sadrinhotest.RetrofitClient;
 import com.example.sadrinhotest.databinding.FragmentAccueilBinding;
 import com.example.sadrinhotest.models.User;
@@ -39,7 +40,8 @@ import retrofit2.Retrofit;
 public class FragmentAccueil extends Fragment {
 
     private FragmentAccueilBinding binding;
-
+    private UserViewModel userViewModel;
+    private static final String TAG = "FragmentAccueil";
     public static FragmentAccueil newInstance(String param1, String param2) {
         FragmentAccueil fragment = new FragmentAccueil();
         return fragment;
@@ -48,51 +50,32 @@ public class FragmentAccueil extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
 
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("user_prefs", MODE_PRIVATE);
-        boolean isLoggedIn = sharedPreferences.getBoolean("is_logged_in", false); // false si l'utilisateur n'est pas connecté
+        boolean isLoggedIn = sharedPreferences.getBoolean("is_logged_in", false);
         String registeredPseudo = sharedPreferences.getString("user_pseudo", "");
 
-        Retrofit retrofit = RetrofitClient.getInstance();
-        ApiService apiService = retrofit.create(ApiService.class);
         if (isLoggedIn) {
+            Log.d(TAG, "L'utilisateur est déjà connecté!");
             Map<String, String> params = new HashMap<>();
             params.put("pseudo", registeredPseudo);
 
-            apiService.getUserByPseudo(params).enqueue(new Callback<User>() {
-                @Override
-                public void onResponse(Call<User> call, Response<User> response) {
-                    if (response.isSuccessful() && response.body() != null) {
-                        User user = response.body();
-
-                        // Sauvegarder l'utilisateur dans le ViewModel pour l'utiliser dans d'autres fragments
-                        UserViewModel viewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-                        viewModel.setUser(user);
-
-                        // Log et redirection vers le FragmentMenu
-                        Log.d("Pré-Login", "L'utilisateur est déjà connecté, passage au FragmentMenu");
+            userViewModel.getUserByPseudo(params).observe(this, user -> {
+                if (user != null) {
+                        userViewModel.setUser(user);
                         FragmentMenu fragmentMenu = new FragmentMenu();
                         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
                         fragmentManager.beginTransaction()
                                 .replace(R.id.conteneur, fragmentMenu)
                                 .addToBackStack(null)
                                 .commit();
-                    } else {
-                        // Gestion des erreurs si l'utilisateur n'est pas trouvé
-                        Log.d("API", "Utilisateur non trouvé");
-                        Toast.makeText(getContext(), "Erreur : Utilisateur non trouvé", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<User> call, Throwable t) {
-                    // Erreur de connexion
-                    Log.d("API", "Erreur lors de la récupération de l'utilisateur : " + t.getMessage());
-                    Toast.makeText(getContext(), "Erreur de connexion", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "Erreur : Utilisateur non trouvé", Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
-            Log.d("Pré-Login", "L'utilisateur n'est pas déjà connecté!");
+            Log.d(TAG, "L'utilisateur n'est pas déjà connecté!");
         }
     }
 
@@ -146,57 +129,34 @@ public class FragmentAccueil extends Fragment {
                 String pseudoProvided = binding.pseudoInput.getText().toString();
                 String passwordProvided = binding.passwordInput.getText().toString();
 
-                Retrofit retrofit = RetrofitClient.getInstance();
-                ApiService apiService = retrofit.create(ApiService.class);
+                userViewModel.getUsers().observe(getViewLifecycleOwner(), users -> {
+                    if (users != null && !users.isEmpty()) {
+                        for (User user : users) {
+                            if (user.getPseudo().equals(pseudoProvided)) {
+                                String hashedPassword = user.getPassword();
 
-                apiService.getUsers().enqueue(new Callback<List<User>>() {
-                    @Override
-                    public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                        if (response.isSuccessful()) {
-                            List<User> users = response.body();
-                            boolean userFound = false;
+                                if (BCrypt.checkpw(passwordProvided, hashedPassword)) {
+                                    SharedPreferences sharedPreferences = requireContext().getSharedPreferences("user_prefs", MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putBoolean("is_logged_in", true);
+                                    editor.putString("user_pseudo", user.getPseudo());
+                                    editor.apply();
 
-                            for (User user : users) {
-                                Log.d("API", "UserAdmin : " + user.toString());
-                                if (user.getPseudo().equals(pseudoProvided)) {
-                                    userFound = true;
-                                    String hashedPassword = user.getPassword();
+                                    UserViewModel viewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+                                    viewModel.setUser(user);
 
-                                    if (BCrypt.checkpw(passwordProvided, hashedPassword)) {
-                                        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("user_prefs", MODE_PRIVATE);
-                                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                                        editor.putBoolean("is_logged_in", true);
-                                        editor.putString("user_pseudo", user.getPseudo());
-                                        editor.apply();
-
-                                        UserViewModel viewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-                                        viewModel.setUser(user);
-
-                                        FragmentMenu fragmentMenu = new FragmentMenu();
-                                        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-                                        fragmentManager.beginTransaction()
-                                                .replace(R.id.conteneur, fragmentMenu)
-                                                .addToBackStack(null)
-                                                .commit();
-                                    } else {
-                                        Toast.makeText(getContext(), "Mot de passe incorrect", Toast.LENGTH_SHORT).show();
-                                    }
-                                    break;
+                                    FragmentMenu fragmentMenu = new FragmentMenu();
+                                    FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                                    fragmentManager.beginTransaction()
+                                            .replace(R.id.conteneur, fragmentMenu)
+                                            .addToBackStack(null)
+                                            .commit();
+                                } else {
+                                    Toast.makeText(getContext(), "Mot de passe incorrect", Toast.LENGTH_SHORT).show();
                                 }
+                                break;
                             }
-
-                            if (!userFound) {
-                                Toast.makeText(getContext(), "Pseudo incorrect", Toast.LENGTH_SHORT).show();
-                            }
-                        } else {
-                            Toast.makeText(getContext(), "Erreur de communication avec le serveur", Toast.LENGTH_SHORT).show();
                         }
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<User>> call, Throwable t) {
-                        Log.d("API", "Erreur lors de la récupération des utilisateurs : " + t.getMessage());
-                        Toast.makeText(getContext(), "Erreur de connexion", Toast.LENGTH_SHORT).show();
                     }
                 });
             });

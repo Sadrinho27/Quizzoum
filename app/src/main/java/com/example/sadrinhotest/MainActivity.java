@@ -10,6 +10,7 @@ import com.example.sadrinhotest.Pages.FragmentAccueil;
 import com.example.sadrinhotest.databinding.ActivityMainBinding;
 import com.example.sadrinhotest.models.Question;
 import com.example.sadrinhotest.models.Reponse;
+import com.example.sadrinhotest.models.User;
 
 import java.util.List;
 
@@ -21,11 +22,10 @@ import retrofit2.Retrofit;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-    private Retrofit retrofit;
     private ApiService apiService;
-    private Call<List<Question>> apiCall;  // Stocker la requête pour annulation
+    private Call<List<User>> apiCall;
     private static final String BASE_URL = "http://192.168.1.15/quizzoum/";
-    private static final String TAG = "MainActivity";  // Tag pour Log.d()
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +35,9 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
-        // Retrofit retrofit = RetrofitClient.getInstance();
-        // apiService = retrofit.create(ApiService.class);
-        // fetchQuestionData();
+//        Retrofit retrofit = RetrofitClient.getInstance();
+//        apiService = retrofit.create(ApiService.class);
+//        fetchData();
 
         // Ajouter le fragment seulement si savedInstanceState est null
         if (savedInstanceState == null) {
@@ -47,39 +47,28 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void fetchQuestionData() {
-        // Appel de l'API pour récupérer les questions
-        apiCall = apiService.getQuestions(); // Assigner l'appel API à apiCall
-        apiCall.enqueue(new Callback<List<Question>>() {
+    private void fetchData() {
+        apiCall = apiService.getUsers();
+        apiCall.enqueue(new Callback<List<User>>() {
             @Override
-            public void onResponse(Call<List<Question>> call, Response<List<Question>> response) {
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 if (response.isSuccessful()) {
-                    // Récupération des questions
-                    List<Question> questions = response.body();
-                    if (questions != null && !questions.isEmpty()) {
-                        // Traitez les données des questions ici
-                        for (Question question : questions) {
-                            Log.d(TAG, "Question: " + question.getLibelle());
-
-                            // Affichage des réponses
-                            List<Reponse> reponses = question.getReponses();
-                            for (Reponse reponse : reponses) {
-                                Log.d(TAG, "Réponse: " + reponse.getLibelle() + " - Correct: " + (reponse.isCorrect() ? "Oui" : "Non"));
-                            }
+                    List<User> datas = response.body();
+                    if (datas != null && !datas.isEmpty()) {
+                        Log.d(TAG, datas.toString());
+                        for (User data : datas) {
+                            Log.d(TAG, "Pseudo: " + data.getPseudo() + " - Hashed Password: " + data.getPassword() + " - Is admin: " + (data.isAdmin() ? "Yes" : "No"));
                         }
                     } else {
-                        // Aucun résultat trouvé
-                        Log.d(TAG, "Aucune question trouvée");
+                        Log.d(TAG, "Aucune données trouvée");
                     }
                 } else {
-                    // Gérer l'erreur de réponse
                     Log.d(TAG, "Erreur de récupération des données: " + response.message());
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Question>> call, Throwable t) {
-                // Gérer l'échec de la requête
+            public void onFailure(Call<List<User>> call, Throwable t) {
                 Log.d(TAG, "Erreur réseau ou serveur: " + t.getMessage());
             }
         });
@@ -95,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "Requête annulée dans onDestroy");
         }
 
-        binding = null; // Nettoyage pour éviter les memory leaks
+        binding = null;
     }
 
 }
