@@ -1,4 +1,4 @@
-package com.example.sadrinhotest.Pages;
+package com.example.sadrinhotest.ui.fragments;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -15,12 +15,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.sadrinhotest.Interface.ApiService;
+import com.example.sadrinhotest.api.ApiService;
 import com.example.sadrinhotest.R;
-import com.example.sadrinhotest.RetrofitClient;
+import com.example.sadrinhotest.data.retrofit.RetrofitClient;
 import com.example.sadrinhotest.databinding.FragmentAccountCreationBinding;
-import com.example.sadrinhotest.models.User;
-import com.example.sadrinhotest.models.UserViewModel;
+import com.example.sadrinhotest.data.models.User;
+import com.example.sadrinhotest.viewmodels.UserViewModel;
 
 import org.json.JSONObject;
 import org.mindrot.jbcrypt.BCrypt;

@@ -1,4 +1,4 @@
-package com.example.sadrinhotest.Pages;
+package com.example.sadrinhotest.ui.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,11 +14,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.sadrinhotest.Adapter.UserAdapter;
+import com.example.sadrinhotest.adapters.UserAdapter;
 import com.example.sadrinhotest.R;
 import com.example.sadrinhotest.databinding.FragmentManageUserBinding;
-import com.example.sadrinhotest.models.User;
-import com.example.sadrinhotest.models.UserViewModel;
+import com.example.sadrinhotest.data.models.User;
+import com.example.sadrinhotest.viewmodels.UserViewModel;
 
 import java.util.ArrayList;
 import java.util.List;

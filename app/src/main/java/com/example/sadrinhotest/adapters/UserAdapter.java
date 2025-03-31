@@ -1,4 +1,4 @@
-package com.example.sadrinhotest.Adapter;
+package com.example.sadrinhotest.adapters;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -15,8 +15,8 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sadrinhotest.R;
-import com.example.sadrinhotest.models.User;
-import com.example.sadrinhotest.models.UserViewModel;
+import com.example.sadrinhotest.data.models.User;
+import com.example.sadrinhotest.viewmodels.UserViewModel;
 
 import java.util.ArrayList;
 import java.util.List;

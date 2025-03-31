@@ -1,10 +1,9 @@
-package com.example.sadrinhotest.Pages;
+package com.example.sadrinhotest.ui.fragments;
 
 import static android.content.Context.MODE_PRIVATE;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.sadrinhotest.R;
 import com.example.sadrinhotest.databinding.FragmentMenuBinding;
-import com.example.sadrinhotest.models.UserViewModel;
+import com.example.sadrinhotest.viewmodels.UserViewModel;
 
 
 public class FragmentMenu extends Fragment {

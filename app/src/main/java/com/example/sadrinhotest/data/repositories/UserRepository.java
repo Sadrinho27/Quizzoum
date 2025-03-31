@@ -1,4 +1,4 @@
-package com.example.sadrinhotest.Repository;
+package com.example.sadrinhotest.data.repositories;
 
 import android.util.Log;
 
@@ -6,9 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.sadrinhotest.Interface.ApiService;
-import com.example.sadrinhotest.RetrofitClient;
-import com.example.sadrinhotest.models.User;
+import com.example.sadrinhotest.api.ApiService;
+import com.example.sadrinhotest.data.retrofit.RetrofitClient;
+import com.example.sadrinhotest.data.models.User;
 
 import java.util.Collections;
 import java.util.HashMap;

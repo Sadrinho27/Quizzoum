@@ -1,23 +1,21 @@
-package com.example.sadrinhotest;
+package com.example.sadrinhotest.ui;
 
 import android.os.Bundle;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.sadrinhotest.Interface.ApiService;
-import com.example.sadrinhotest.Pages.FragmentAccueil;
+import com.example.sadrinhotest.R;
+import com.example.sadrinhotest.api.ApiService;
+import com.example.sadrinhotest.ui.fragments.FragmentAccueil;
 import com.example.sadrinhotest.databinding.ActivityMainBinding;
-import com.example.sadrinhotest.models.Question;
-import com.example.sadrinhotest.models.Reponse;
-import com.example.sadrinhotest.models.User;
+import com.example.sadrinhotest.data.models.User;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
 

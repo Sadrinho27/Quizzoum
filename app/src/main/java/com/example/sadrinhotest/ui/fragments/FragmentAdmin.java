@@ -1,4 +1,4 @@
-package com.example.sadrinhotest.Pages;
+package com.example.sadrinhotest.ui.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

@@ -1,4 +1,4 @@
-package com.example.sadrinhotest.models;
+package com.example.sadrinhotest.data.models;
 
 public class Session {
     private int idSession;

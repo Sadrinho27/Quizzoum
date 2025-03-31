@@ -1,15 +1,14 @@
-package com.example.sadrinhotest.models;
+package com.example.sadrinhotest.viewmodels;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.sadrinhotest.Repository.UserRepository;
+import com.example.sadrinhotest.data.models.User;
+import com.example.sadrinhotest.data.repositories.UserRepository;
 
 import java.util.List;
 import java.util.Map;
-
-import retrofit2.Callback;
 
 public class UserViewModel extends ViewModel {
     private final MutableLiveData<User> userLiveData = new MutableLiveData<>();

@@ -1,4 +1,4 @@
-package com.example.sadrinhotest.Pages;
+package com.example.sadrinhotest.ui.fragments;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -18,24 +18,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.sadrinhotest.Interface.ApiService;
 import com.example.sadrinhotest.R;
-import com.example.sadrinhotest.Repository.UserRepository;
-import com.example.sadrinhotest.RetrofitClient;
 import com.example.sadrinhotest.databinding.FragmentAccueilBinding;
-import com.example.sadrinhotest.models.User;
-import com.example.sadrinhotest.models.UserViewModel;
+import com.example.sadrinhotest.data.models.User;
+import com.example.sadrinhotest.viewmodels.UserViewModel;
 
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class FragmentAccueil extends Fragment {
 

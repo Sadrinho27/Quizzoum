@@ -1,4 +1,4 @@
-package com.example.sadrinhotest.Pages;
+package com.example.sadrinhotest.ui.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,9 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.sadrinhotest.Interface.ApiService;
+import com.example.sadrinhotest.api.ApiService;
 import com.example.sadrinhotest.databinding.FragmentQuizBinding;
-import com.example.sadrinhotest.models.Question;
+import com.example.sadrinhotest.data.models.Question;
 
 import java.util.ArrayList;
 import java.util.List;

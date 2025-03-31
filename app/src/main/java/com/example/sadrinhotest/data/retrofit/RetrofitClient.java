@@ -1,4 +1,4 @@
-package com.example.sadrinhotest;
+package com.example.sadrinhotest.data.retrofit;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
