@@ -69,7 +69,9 @@ public class FragmentAccountCreation extends Fragment {
                 userViewModel.getUsers().observe(getViewLifecycleOwner(), users -> {
                     if (users != null) {
                         boolean pseudoExist = false;
+                        int nbUsers = 0;
                         for (User user : users) {
+                            nbUsers++;
                             if (user.getPseudo().equals(pseudo)) {
                                 pseudoExist = true;
                                 break; // Pas besoin de continuer à vérifier
@@ -82,6 +84,7 @@ public class FragmentAccountCreation extends Fragment {
                             // Créer un nouvel utilisateur
                             String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
                             User newUser = new User(pseudo, hashedPassword, 0);
+                            newUser.setId(nbUsers+1);
 
                             // Ajouter l'utilisateur via ViewModel
                             userViewModel.addUser(newUser).observe(getViewLifecycleOwner(), createdUser -> {

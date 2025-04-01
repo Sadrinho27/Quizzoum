@@ -14,7 +14,6 @@ import retrofit2.http.POST;
 
 public interface ApiService {
 
-    // Call API User
     @GET("api.php?resource=users")
     Call<List<User>> getUsers();
 
@@ -30,28 +29,19 @@ public interface ApiService {
     @POST("api.php?resource=update_user_score")
     Call<Void> updateUserScore(@Body Map<String, String> params);
 
-
     @POST("api.php?resource=delete_user")
     Call<Void> deleteUser(@Body Map<String, String> params);
 
-    // Call API Questions
     @GET("api.php?resource=questions")
     Call<List<Question>> getQuestions();
-
-//    @POST("api.php")
-//    Call<Void> addQuestion(
-//            @Query("resource") String resource,
-//            @Body QuestionRequest questionRequest
-//    );
-
-    // Call API Session
-    @GET("api.php?resource=sessions")
-    Call<List<Session>> getSessions();
 
     @POST("api.php?resource=sessions")
     Call<Integer> addSession(@Body Map<String, String> params);
 
     @POST("api.php?resource=session_questions")
     Call<Void> addSessionQuestion(@Body Map<String, Object> params);
+
+    @GET("api.php?resource=leaderboard")
+    Call<List<Map<String, Object>>> getLeaderboard();
 
 }
