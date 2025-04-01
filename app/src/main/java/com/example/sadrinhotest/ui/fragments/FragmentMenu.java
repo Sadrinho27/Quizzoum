@@ -20,24 +20,17 @@ import com.example.sadrinhotest.viewmodels.UserViewModel;
 
 
 public class FragmentMenu extends Fragment {
-
     private FragmentMenuBinding binding;
-
     private UserViewModel userViewModel;
-
-    public static FragmentMenu newInstance(String param1, String param2) {
-        FragmentMenu fragment = new FragmentMenu();
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentMenuBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -45,8 +38,6 @@ public class FragmentMenu extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
 
         if (binding != null) {
             binding.PlayBtn.setOnClickListener(v -> {

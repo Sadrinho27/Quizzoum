@@ -44,6 +44,10 @@ public class UserViewModel extends ViewModel {
     public LiveData<Boolean> deleteUser(String pseudo) {
         return userRepository.deleteUser(pseudo);
     }
+
+    public LiveData<Boolean> addUser(User newUser) {
+        return userRepository.addUser(newUser);
+    }
 }
 
 

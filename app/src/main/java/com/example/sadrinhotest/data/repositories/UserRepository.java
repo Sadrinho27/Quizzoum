@@ -74,6 +74,28 @@ public class UserRepository {
         return userLiveData;
     }
 
+    public LiveData<Boolean> addUser(User newUser) {
+        MutableLiveData<Boolean> resultLiveData = new MutableLiveData<>();
+
+        apiService.addUser(newUser).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response.isSuccessful()) {
+                    resultLiveData.setValue(true); // Succès
+                } else {
+                    resultLiveData.setValue(false); // Échec de la mise à jour
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                resultLiveData.setValue(false); // Erreur réseau ou autre
+            }
+        });
+
+        return resultLiveData;
+    }
+
     public LiveData<Boolean> updateUserRole(String pseudo, int newRole) {
         MutableLiveData<Boolean> resultLiveData = new MutableLiveData<>();
 

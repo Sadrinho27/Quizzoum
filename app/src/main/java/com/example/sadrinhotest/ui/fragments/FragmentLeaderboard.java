@@ -5,18 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.sadrinhotest.databinding.FragmentLeaderboardBinding;
 
 public class FragmentLeaderboard extends Fragment {
-
     private FragmentLeaderboardBinding binding;
-
-    public static FragmentLeaderboard newInstance(String param1, String param2) {
-        FragmentLeaderboard fragment = new FragmentLeaderboard();
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -24,8 +19,14 @@ public class FragmentLeaderboard extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentLeaderboardBinding.inflate(inflater, container, false);
         return binding.getRoot();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

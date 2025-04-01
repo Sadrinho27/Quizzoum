@@ -16,11 +16,6 @@ import com.example.sadrinhotest.databinding.FragmentAdminBinding;
 public class FragmentAdmin extends Fragment {
     private FragmentAdminBinding binding;
 
-    public static FragmentAdmin newInstance(String param1, String param2) {
-        FragmentAdmin fragment = new FragmentAdmin();
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +23,7 @@ public class FragmentAdmin extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentAdminBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -38,7 +33,6 @@ public class FragmentAdmin extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         if (binding != null) {
-
             binding.manageUsersBtn.setOnClickListener(v -> {
                 FragmentManageUser fragmentManageUser = new FragmentManageUser();
                 FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();

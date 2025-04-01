@@ -33,10 +33,6 @@ public class FragmentAccueil extends Fragment {
     private FragmentAccueilBinding binding;
     private UserViewModel userViewModel;
     private static final String TAG = "FragmentAccueil";
-    public static FragmentAccueil newInstance(String param1, String param2) {
-        FragmentAccueil fragment = new FragmentAccueil();
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,7 +67,7 @@ public class FragmentAccueil extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentAccueilBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }

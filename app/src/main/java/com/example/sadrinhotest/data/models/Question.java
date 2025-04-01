@@ -3,20 +3,12 @@ package com.example.sadrinhotest.data.models;
 import java.util.List;
 
 public class Question {
-    private int idQuestion;
     private String libelle;
-    private int idTypeDiff;
-    private int idTheme;
+    private String difficulty;
+    private String theme;
     private List<Reponse> reponses;
 
     // Getters et setters
-    public int getIdQuestion() {
-        return idQuestion;
-    }
-
-    public void setIdQuestion(int idQuestion) {
-        this.idQuestion = idQuestion;
-    }
 
     public String getLibelle() {
         return libelle;
@@ -26,20 +18,12 @@ public class Question {
         this.libelle = libelle;
     }
 
-    public int getIdTypeDiff() {
-        return idTypeDiff;
+    public String getDifficulty() {
+        return difficulty;
     }
 
-    public void setIdTypeDiff(int idTypeDiff) {
-        this.idTypeDiff = idTypeDiff;
-    }
-
-    public int getIdTheme() {
-        return idTheme;
-    }
-
-    public void setIdTheme(int idTheme) {
-        this.idTheme = idTheme;
+    public String getTheme() {
+        return theme;
     }
 
     public List<Reponse> getReponses() {

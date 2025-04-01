@@ -7,6 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sadrinhotest.R;
 import com.example.sadrinhotest.api.ApiService;
+import com.example.sadrinhotest.data.models.Question;
+import com.example.sadrinhotest.data.models.Reponse;
+import com.example.sadrinhotest.data.retrofit.RetrofitClient;
 import com.example.sadrinhotest.ui.fragments.FragmentAccueil;
 import com.example.sadrinhotest.databinding.ActivityMainBinding;
 import com.example.sadrinhotest.data.models.User;
@@ -16,13 +19,13 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private ApiService apiService;
-    private Call<List<User>> apiCall;
-    private static final String BASE_URL = "http://192.168.1.15/quizzoum/";
+    private Call<List<Question>> apiCall;
     private static final String TAG = "MainActivity";
 
     @Override
@@ -33,9 +36,9 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
-//        Retrofit retrofit = RetrofitClient.getInstance();
-//        apiService = retrofit.create(ApiService.class);
-//        fetchData();
+        Retrofit retrofit = RetrofitClient.getInstance();
+        apiService = retrofit.create(ApiService.class);
+        fetchData();
 
         // Ajouter le fragment seulement si savedInstanceState est null
         if (savedInstanceState == null) {
@@ -46,16 +49,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fetchData() {
-        apiCall = apiService.getUsers();
-        apiCall.enqueue(new Callback<List<User>>() {
+        apiCall = apiService.getQuestions();
+        apiCall.enqueue(new Callback<List<Question>>() {
             @Override
-            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+            public void onResponse(Call<List<Question>> call, Response<List<Question>> response) {
                 if (response.isSuccessful()) {
-                    List<User> datas = response.body();
+                    List<Question> datas = response.body();
                     if (datas != null && !datas.isEmpty()) {
-                        Log.d(TAG, datas.toString());
-                        for (User data : datas) {
-                            Log.d(TAG, "Pseudo: " + data.getPseudo() + " - Hashed Password: " + data.getPassword() + " - Is admin: " + (data.isAdmin() ? "Yes" : "No"));
+                        for (Question data : datas) {
+                            Log.d(TAG, "Question: " + data.getLibelle() + " Difficulty : "  + data.getDifficulty() + " Theme : "  + data.getTheme());
+                            for (Reponse data1 : data.getReponses()) {
+                                Log.d(TAG, "Reponse: " + data1.getLibelle() + " Is Correct : "  + (data1.isCorrect() ? "Yes" : "No"));
+                            }
+
                         }
                     } else {
                         Log.d(TAG, "Aucune données trouvée");
@@ -66,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<User>> call, Throwable t) {
+            public void onFailure(Call<List<Question>> call, Throwable t) {
                 Log.d(TAG, "Erreur réseau ou serveur: " + t.getMessage());
             }
         });
