@@ -44,18 +44,6 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/scoreText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        tools:text="Score: 0"
-        android:textColor="#00FFFF"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/card" />
-
-    <TextView
         android:id="@+id/difficultyText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -65,15 +53,14 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scoreText" />
+        app:layout_constraintTop_toBottomOf="@+id/card" />
 
     <TextView
-        android:id="@+id/timeText"
+        android:id="@+id/themeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="visible"
         android:layout_marginTop="40dp"
-        tools:text="Temps total : 0 secondes"
+        tools:text="Thème: Informatique"
         android:textColor="#00FFFF"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"

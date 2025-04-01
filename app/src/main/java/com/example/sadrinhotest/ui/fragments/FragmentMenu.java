@@ -53,7 +53,7 @@ public class FragmentMenu extends Fragment {
                 FragmentQuiz fragmentQuiz = new FragmentQuiz();
                 FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction()
-                        .replace(R.id.conteneur, fragmentQuiz)
+                        .replace(R.id.container, fragmentQuiz)
                         .addToBackStack(null)
                         .commit();
             });
@@ -62,7 +62,7 @@ public class FragmentMenu extends Fragment {
                 FragmentLeaderboard fragmentLeaderboard = new FragmentLeaderboard();
                 FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction()
-                        .replace(R.id.conteneur, fragmentLeaderboard)
+                        .replace(R.id.container, fragmentLeaderboard)
                         .addToBackStack(null)
                         .commit();
             });
@@ -79,7 +79,7 @@ public class FragmentMenu extends Fragment {
                 FragmentAccueil fragmentAccueil = new FragmentAccueil();
                 FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction()
-                        .replace(R.id.conteneur, fragmentAccueil)
+                        .replace(R.id.container, fragmentAccueil)
                         .addToBackStack(null)
                         .commit();
             });
@@ -99,7 +99,7 @@ public class FragmentMenu extends Fragment {
                 FragmentAdmin fragmentAdmin = new FragmentAdmin();
                 FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction()
-                        .replace(R.id.conteneur, fragmentAdmin)
+                        .replace(R.id.container, fragmentAdmin)
                         .addToBackStack(null)
                         .commit();
             });

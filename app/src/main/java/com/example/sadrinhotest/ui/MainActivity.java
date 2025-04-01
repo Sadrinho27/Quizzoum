@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         // Ajouter le fragment seulement si savedInstanceState est null
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.conteneur, new FragmentAccueil())
+                    .replace(R.id.container, new FragmentAccueil())
                     .commit();
         }
     }

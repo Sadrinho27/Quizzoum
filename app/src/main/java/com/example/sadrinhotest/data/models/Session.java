@@ -4,7 +4,6 @@ public class Session {
     private int idSession;
     private String date;
     private int score;
-    private int duree;
     private int idUser;
 
     // Getters et setters
@@ -30,14 +29,6 @@ public class Session {
 
     public void setScore(int score) {
         this.score = score;
-    }
-
-    public int getDuree() {
-        return duree;
-    }
-
-    public void setDuree(int duree) {
-        this.duree = duree;
     }
 
     public int getIdUser() {

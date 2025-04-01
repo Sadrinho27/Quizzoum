@@ -122,6 +122,32 @@ public class UserRepository {
         return resultLiveData;
     }
 
+    public LiveData<Boolean> updateUserScore(String pseudo, int score) {
+        MutableLiveData<Boolean> resultLiveData = new MutableLiveData<>();
+
+        Map<String, String> params = new HashMap<>();
+        params.put("pseudo", pseudo);
+        params.put("score", String.valueOf(score));
+
+        apiService.updateUserScore(params).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    resultLiveData.setValue(true); // Succès
+                } else {
+                    resultLiveData.setValue(false); // Échec de la mise à jour
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                resultLiveData.setValue(false); // Erreur réseau ou autre
+            }
+        });
+
+        return resultLiveData;
+    }
+
     public LiveData<Boolean> deleteUser(String pseudo) {
         MutableLiveData<Boolean> resultLiveData = new MutableLiveData<>();
 

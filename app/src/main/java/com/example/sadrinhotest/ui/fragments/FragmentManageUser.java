@@ -79,7 +79,7 @@ public class FragmentManageUser extends Fragment {
                 FragmentAdmin fragmentAdmin = new FragmentAdmin();
                 FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction()
-                        .replace(R.id.conteneur, fragmentAdmin)
+                        .replace(R.id.container, fragmentAdmin)
                         .addToBackStack(null)
                         .commit();
             });

@@ -55,7 +55,7 @@ public class FragmentAccueil extends Fragment {
                         FragmentMenu fragmentMenu = new FragmentMenu();
                         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
                         fragmentManager.beginTransaction()
-                                .replace(R.id.conteneur, fragmentMenu)
+                                .replace(R.id.container, fragmentMenu)
                                 .addToBackStack(null)
                                 .commit();
                 } else {
@@ -92,7 +92,7 @@ public class FragmentAccueil extends Fragment {
                 FragmentAccountCreation fragmentAccountCreation = new FragmentAccountCreation();
                 FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction()
-                        .replace(R.id.conteneur, fragmentAccountCreation)
+                        .replace(R.id.container, fragmentAccountCreation)
                         .addToBackStack(null)
                         .commit();
             });
@@ -144,7 +144,7 @@ public class FragmentAccueil extends Fragment {
                                     FragmentMenu fragmentMenu = new FragmentMenu();
                                     FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
                                     fragmentManager.beginTransaction()
-                                            .replace(R.id.conteneur, fragmentMenu)
+                                            .replace(R.id.container, fragmentMenu)
                                             .addToBackStack(null)
                                             .commit();
                                 } else {

@@ -67,7 +67,7 @@ public class FragmentAccountCreation extends Fragment {
             } else {
                 // Vérifier si le pseudo existe déjà
                 userViewModel.getUsers().observe(getViewLifecycleOwner(), users -> {
-                    if (users != null && !users.isEmpty()) {
+                    if (users != null) {
                         boolean pseudoExist = false;
                         for (User user : users) {
                             if (user.getPseudo().equals(pseudo)) {
@@ -100,7 +100,7 @@ public class FragmentAccountCreation extends Fragment {
                                 FragmentMenu fragmentMenu = new FragmentMenu();
                                 FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
                                 fragmentManager.beginTransaction()
-                                        .replace(R.id.conteneur, fragmentMenu)
+                                        .replace(R.id.container, fragmentMenu)
                                         .addToBackStack(null)
                                         .commit();
                             });

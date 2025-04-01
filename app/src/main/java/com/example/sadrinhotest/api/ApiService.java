@@ -27,6 +27,10 @@ public interface ApiService {
     @POST("api.php?resource=update_user_role")
     Call<Void> updateUserRole(@Body Map<String, String> params);
 
+    @POST("api.php?resource=update_user_score")
+    Call<Void> updateUserScore(@Body Map<String, String> params);
+
+
     @POST("api.php?resource=delete_user")
     Call<Void> deleteUser(@Body Map<String, String> params);
 
@@ -43,5 +47,11 @@ public interface ApiService {
     // Call API Session
     @GET("api.php?resource=sessions")
     Call<List<Session>> getSessions();
+
+    @POST("api.php?resource=sessions")
+    Call<Integer> addSession(@Body Map<String, String> params);
+
+    @POST("api.php?resource=session_questions")
+    Call<Void> addSessionQuestion(@Body Map<String, Object> params);
 
 }

@@ -41,6 +41,10 @@ public class UserViewModel extends ViewModel {
         return userRepository.updateUserRole(pseudo, newRole);
     }
 
+    public LiveData<Boolean> updateUserScore(String pseudo, int score) {
+        return userRepository.updateUserScore(pseudo, score);
+    }
+
     public LiveData<Boolean> deleteUser(String pseudo) {
         return userRepository.deleteUser(pseudo);
     }
