@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -64,6 +65,14 @@ public class FragmentManageUser extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),
+                new OnBackPressedCallback(true) {  // true signifie que le callback est actif
+                    @Override
+                    public void handleOnBackPressed() {
+                        // Ne rien faire pour désactiver le bouton retour
+                    }
+                });
 
         if (binding != null) {
             binding.backBtn.setOnClickListener(v -> {
