@@ -18,9 +18,8 @@ This Android quiz application allows users to test their knowledge in **Computer
 ## Technologies Used
 
 - **Android Studio**: The IDE used for development.
-- **Java / Kotlin**: (mention the language you used) for app development.
-- **Firebase** (if applicable): for real-time data storage, authentication, or analytics.
-- **SQLite** (if applicable): for local database management.
+- **Java**: for app development.
+- **MySQL**: for database management with API calls to interact with the backend.
 
 ---
 
